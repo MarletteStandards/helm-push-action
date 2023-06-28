@@ -9,7 +9,9 @@ jobs:
     outputs:
       version: ${{ steps.get-bump-version.outputs.newVersion}}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: "get-action"
-        uses: MarletteStandards/ms-bump-semver-action@2.0.2
+        uses: MarletteStandards/ms-bump-semver-action@2.0.2.beta
         id: get-bump-version
