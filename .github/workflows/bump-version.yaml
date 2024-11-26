@@ -1,6 +1,12 @@
 name: Bump Version
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   tag_new_release:
@@ -9,7 +15,7 @@ jobs:
     outputs:
       version: ${{ steps.get-bump-version.outputs.newVersion}}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: "get-action"
         uses: MarletteStandards/ms-bump-semver-action@2.0.4
         id: get-bump-version
