@@ -1,15 +1,23 @@
 name: Bump Version
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
   tag_new_release:
     if: (( github.ref == 'refs/heads/main' ) ||  (github.ref == 'refs/heads/master') ) || ((github.event_name == 'pull_request') && contains(fromJson('["opened","synchronize"]'),github.event.action))
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.get-bump-version.outputs.newVersion}}
     steps:
-      - uses: actions/checkout@v2
-      - name: "get-action"
-        uses: MarletteStandards/ms-bump-semver-action@2.0.2
-        id: get-bump-version
+      - uses: actions/checkout@v3
+      - name: Bump version
+        uses: licenseware/bump-version@v1
+        with:
+          release: 'false'
+          tag: 'true' # Tag and push to repository (truthy values: true, yes, 1)
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # required for GitHub release
+

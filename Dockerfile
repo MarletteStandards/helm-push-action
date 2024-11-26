@@ -1,4 +1,4 @@
-FROM plugins/base:linux-amd64
+FROM plugins/base:linux-arm64
 
 LABEL maintainer="Serebrennikov Stanislav <goodsmileduck@gmail.com>" \
   org.label-schema.name="helm chart push" \
